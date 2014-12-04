@@ -2,7 +2,7 @@
 Tanimoto Score
 
 Tanimoto scoring is used for comparing vectors having discrete or specifically binary values.
-It is being used for item-item recommendation systems mostly.
+It is being used for item-item recommendation systems mostly. It's also considered similar to Jaccard Index.
 """
 
 """
