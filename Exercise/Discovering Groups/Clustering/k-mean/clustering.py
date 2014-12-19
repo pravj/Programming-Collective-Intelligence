@@ -1,5 +1,5 @@
 import json
-from math import ceil
+from math import ceil, sqrt
 from random import random
 
 
@@ -10,7 +10,7 @@ class Cluster:
         self.y = y
         self.points = []
 
-    def relocate(self):
+    def relocate(self, i):
         num_points = len(self.points)
         x_sum = y_sum = 0
 
@@ -21,10 +21,13 @@ class Cluster:
         self.x = x_sum / num_points
         self.y = y_sum / num_points
 
+        print self.points
+        self.points = []
+
 
 class KMean:
 
-    def __init__(self, k, limit_x, limit_y):
+    def __init__(self, k):
         self.k = k
         self.clusters = None
 
@@ -42,11 +45,11 @@ class KMean:
         with open('data.json') as f:
             self.data = json.loads(f.read())
 
-        for i in range(self.data):
+        for i in range(len(self.data)):
             self.elements.append([self.data[i]['area'], self.data[i]['population']])
 
     def decide_limit(self):
-        for i in range(self.data):
+        for i in range(len(self.data)):
             if (self.elements[i][0] > self.limit_x):
                 self.limit_x = self.elements[i][0]
 
@@ -58,3 +61,26 @@ class KMean:
 
     def initialize(self):
         self.clusters = [Cluster(random() * self.limit_x, random() * self.limit_y) for i in range(self.k)]
+
+    def distance(self, a, b):
+        return sqrt(((a[0] - b[0]) * (a[0] - b[0])) + ((a[1] - b[1]) * (a[1] - b[1])))
+
+    def process(self):
+        for i in range(20):
+
+            for j in range(len(self.elements)):
+                min_dist = self.distance(self.elements[j], [self.clusters[0].x, self.clusters[0].y])
+                c = 0
+
+                for k in range(1, self.k):
+                    if (self.distance(self.elements[j], [self.clusters[k].x, self.clusters[k].y]) <= min_dist):
+                        min_dist = self.distance(self.elements[j], [self.clusters[k].x, self.clusters[k].y])
+                        c = k
+
+                self.clusters[c].points.append(self.elements[j])
+
+            for l in range(self.k):
+                self.clusters[l].relocate(i)
+
+km = KMean(3)
+km.process()
