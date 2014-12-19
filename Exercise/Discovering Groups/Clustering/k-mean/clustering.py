@@ -1,7 +1,10 @@
 import json
 from math import ceil, sqrt
 from random import random
+from plotter import Plotter
 
+
+ITERATION_LIMIT = 20
 
 class Cluster:
 
@@ -10,7 +13,7 @@ class Cluster:
         self.y = y
         self.points = []
 
-    def relocate(self, i):
+    def relocate(self, iteration):
         num_points = len(self.points)
         x_sum = y_sum = 0
 
@@ -21,13 +24,14 @@ class Cluster:
         self.x = x_sum / num_points
         self.y = y_sum / num_points
 
-        print self.points
         self.points = []
 
 
 class KMean:
 
     def __init__(self, k):
+        self.plotter = Plotter(k)
+
         self.k = k
         self.clusters = None
 
@@ -66,7 +70,7 @@ class KMean:
         return sqrt(((a[0] - b[0]) * (a[0] - b[0])) + ((a[1] - b[1]) * (a[1] - b[1])))
 
     def process(self):
-        for i in range(20):
+        for i in range(ITERATION_LIMIT):
 
             for j in range(len(self.elements)):
                 min_dist = self.distance(self.elements[j], [self.clusters[0].x, self.clusters[0].y])
@@ -79,8 +83,9 @@ class KMean:
 
                 self.clusters[c].points.append(self.elements[j])
 
-            for l in range(self.k):
-                self.clusters[l].relocate(i)
-
-km = KMean(3)
-km.process()
+            if (i == (ITERATION_LIMIT - 1)):
+                for l in range(self.k):
+                    self.plotter.add_data(self.clusters[l].points, l)
+            else:
+                for m in range(self.k):
+                    self.clusters[m].relocate(i)
