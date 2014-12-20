@@ -15,10 +15,16 @@ class Plotter:
     def add_data(self, data, index):
         x_data = []
         y_data = []
+        name_data = []
 
         for i in range(len(data)):
             x_data.append(data[i][0])
             y_data.append(data[i][1])
+            name_data.append(data[i][2])
+
+        print index
+        for country in name_data:
+            print country
 
         self.clusters[index] = [x_data, y_data]
 
@@ -33,7 +39,7 @@ class Plotter:
 
         plt.plot(c[0][0], c[0][1], 'ro', c[1][0], c[1][1], 'bs', c[2][0], c[2][1], 'g^', cen_x, cen_y, 'r--')
 
-        plt.ylabel('Population (x 10^8)')
-        plt.xlabel('Area (x 10^6)')
+        plt.ylabel('Population (x10^8 km^2)')
+        plt.xlabel('Area (x 10^6 people)')
 
         plt.show()

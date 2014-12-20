@@ -50,7 +50,7 @@ class KMean:
             self.data = json.loads(f.read())
 
         for i in range(len(self.data)):
-            self.elements.append([(self.data[i]['area']) / 1000000, (self.data[i]['population']) / 100000000])
+            self.elements.append([(self.data[i]['area']) / 1000000, (self.data[i]['population']) / 100000000, self.data[i]['name']])
 
     def decide_limit(self):
         for i in range(len(self.data)):
