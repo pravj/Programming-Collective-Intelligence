@@ -1,10 +1,10 @@
 K-mean Clustering
 =================
 
-> This assignment apply the `K-mean clustering algorithm` on population density data of countries.
+> This assignment apply the `K-mean clustering algorithm` on population density data parameters of different countries.
 
 ### Description
-This assignment uses the `K-mean clustering algorithm` on provided [dataset](#dataset). Here the value of `k` is 3, which separate available countries into 3 different groups(clusters) according to their population density values.
+This assignment uses the `K-mean clustering algorithm` on provided [dataset](#dataset). Here the value of `k` is 3, which separate available countries into 3 different groups(clusters) according to their position in area and population plane. 
 
 ### Dataset
 Assignment uses `json` form data, containing object for each country having `country code`, `country name`, `population` and `area` as the parameters. 
@@ -30,12 +30,12 @@ Dataset don't have all the countries listed on the [source page](http://www.geon
 > Only external library needed is `matplotlib`.
 
 ### Result
-This is the resultant clusters image. Running `main.py` will result this.
+This is the resultant clusters image. Running `main.py` should result a similar image.
 ![Cluster-Image](https://raw.githubusercontent.com/pravj/Programming-Collective-Intelligence/master/Exercise/Discovering%20Groups/Clustering/k-mean/clusters.png?token=ADRywtTSXEpE-aLlJdOLYHromY04clCsks5Unj4twA%3D%3D)
 
 * Cluster-I
-	* China
-	* India
+  * China
+  * India
 * Cluster-II
   * Antarctica
   * Australia
